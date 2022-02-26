@@ -15,6 +15,7 @@ class DB {
             return results.rows[0];
         } catch(e) {
             if (e.code && e.code === '23505') {
+                console.log('inside the create from DB')
                 const message = table === DB_TABLES.USERS ? "Username or email already in use" : "Duplicate record already exists";
                 throw new DataCollisionError(message, 400);
             }

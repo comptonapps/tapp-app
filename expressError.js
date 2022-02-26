@@ -23,11 +23,25 @@ class BadRequestError extends ExpressError {
     constructor(message="Bad Request", status=401) {
         super(message, status);
     }
-}
+};
+
+class UnauthorizedError extends ExpressError {
+    constructor(message="Unauthorized", status=403) {
+        super(message, status);
+    }
+};
+
+class DuplicateRecordError extends ExpressError {
+    constructor(message="Record already exists", status=477) {
+        super(message, status);
+    }
+};
 
 module.exports = {
     ExpressError,
     RecordNotFoundError,
     DataCollisionError,
-    BadRequestError
+    BadRequestError,
+    UnauthorizedError,
+    DuplicateRecordError
 };

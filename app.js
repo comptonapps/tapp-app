@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const placeRoutes = require('./routes/placeRoutes');
 const drinkRoutes = require('./routes/drinkRoutes');
+const testRoutes = require('./routes/testRoutes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/place', placeRoutes);
 app.use('/drink', drinkRoutes);
+app.use('/test', testRoutes);
 
 app.get('/', (req, res) => {
     return res.json({foo: 'bar'});

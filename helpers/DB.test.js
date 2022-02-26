@@ -122,8 +122,6 @@ describe('DB.addPaginationToQuery method', () => {
     });  
 });
 
-
-
 afterAll(async () => {
     await db.query('DELETE FROM users');
     await db.end();

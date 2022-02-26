@@ -10,6 +10,14 @@ const CONSTANTS = {
         PLACE_OWNERS: 'place_owners'
     },
     BCRYPT_WORK_FACTOR: +process.env.BCRYPT_WORK_FACTOR,
+    PLACES_SORT_OPTIONS: {
+        NAME: 'name',
+        RATING: 'rating'
+    },
+    DRINKS_SORT_OPTIONS: {
+        NAME: 'name',
+        RATING: 'rating'
+    }
 
 };
 

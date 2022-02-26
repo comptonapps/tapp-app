@@ -10,6 +10,7 @@ const Place = require('../models/Place');
 const PlaceOwner = require('../models/PlaceOwner');
 const PlaceRating = require('../models/PlaceRating');
 const DrinkRating = require('../models/DrinkRating');
+const { getLatLng } = require('../helpers/getLatLng')
 
 
 router.get('/', userIsAuthenticated, async (req, res, next) => {
@@ -24,8 +25,8 @@ router.get('/', userIsAuthenticated, async (req, res, next) => {
 router.get('/:user_id', userIsAuthenticated, async (req, res, next) => {
     try {
         const { user_id } = req.params;
-        const user = await User.getById(user_id);
-        return res.json({user});
+        const user = await User.queryById(user_id);
+        return res.json({user: user.rows[0]});
     } catch(e) {
         return next(e);
     }
@@ -51,6 +52,16 @@ router.get('/:user_id/rating/place', userIsAuthenticated, async (req, res, next)
     }
 });
 
+router.get('/:user_id/place/:place_id', async (req, res, next) => {
+    try {
+        const { place_id } = req.params;
+        const result = await Place.queryById(place_id);
+        return res.json({place: result});
+    } catch(e) {
+        return next(e);
+    }
+});
+
 router.post('/', async (req, res, next) => {
     try {
 
@@ -62,7 +73,10 @@ router.post('/', async (req, res, next) => {
 router.post('/:user_id/place', userIsAuthenticated,  async (req, res, next) => {
     try {
         const { user_id } = req.params;
-        const place = await Place.create(req.body);
+        const { address, city, state, zip } = req.body;
+        const {lat, lng} = await getLatLng({ address, city, state, zip});
+        const placeData = { ...req.body, lat, lng };
+        const place = await Place.create(placeData);
         const place_owner = await PlaceOwner.createRelationship(user_id, place.id);
         return res.status(201).json({place, place_owner});
     } catch (e) {
@@ -138,6 +152,33 @@ router.patch('/:user_id/rating/drink/:drink_id',
     } catch(e) {
         return next(e);
     }
+});
+
+router.delete('/:user_id/rating/place/:place_id',
+                checkForCorrectUserOrAdmin, 
+                async (req, res, next) => {
+    try {
+        const { user_id, place_id } = req.params;
+        await PlaceRating.delete(user_id, place_id);
+        return res.json({ msg: 'deleted '});
+    } catch (e) {
+        return next(e);
+    }
+
+});
+
+router.delete('/:user_id/rating/drink/:drink_id',
+                checkForCorrectUserOrAdmin,
+                async (req, res, next) => {
+    try {
+        console.log('deleting');
+        const { user_id, drink_id } = req.params;
+        await DrinkRating.delete(+user_id, +drink_id);
+        return res.json({msg: 'deleted'});
+    } catch(e) {
+        return next(e);
+    }
+
 });
 
 router.delete('/:user_id', checkForCorrectUserOrAdmin, async (req, res, next) => {

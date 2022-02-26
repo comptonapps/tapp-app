@@ -45,6 +45,30 @@
                 "password"
             ]
         },
+        "first_name": {
+            "$id": "#/properties/first_name",
+            "type": "string",
+            "title": "The first_name schema",
+            "minLength": 1,
+            "maxLength": 15,
+            "description": "string representing user's first name",
+            "default": "",
+            "examples": [
+                "Jeff"
+            ]
+        },
+        "last_name": {
+            "$id": "#/properties/last_name",
+            "type": "string",
+            "title": "The last_name schema",
+            "minLength": 1,
+            "maxLength": 20,
+            "description": "string representing user's last name",
+            "default": "",
+            "examples": [
+                "Jones"
+            ]
+        },
         "email": {
             "$id": "#/properties/email",
             "type": "string",

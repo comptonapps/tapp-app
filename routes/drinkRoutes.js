@@ -4,6 +4,7 @@ const {
     userIsAuthenticated,
     checkForCorrectUserOrAdmin 
 } = require('../middleware/auth');
+const drinkQuerySchema = require('../schemata/drink/drinkQuerySchema.json');
 const drinkCreateSchema = require('../schemata/drink/drinkCreateSchema.json');
 const drinkUpdateSchema = require('../schemata/drink/drinkUpdateSchema.json');
 const schemaValidator = require('../helpers/schemaValidator');
@@ -13,7 +14,9 @@ const getData = require('../helpers/untappd');
 
 router.get('/', userIsAuthenticated, async (req, res, next) => {
     try {
-        const drinks = await Drink.get();
+        req.query = unstringValues(req.query);
+        schemaValidator(req.query, drinkQuerySchema);
+        const drinks = await Drink.get(req.query);
         return res.json({drinks});
     } catch(e) {
         return next(e);
@@ -31,8 +34,10 @@ router.get('/untappd', async (req, res, next) => {
 
 router.get('/:id', userIsAuthenticated, async (req, res, next) => {
     try {
+        const { city, state } = req.query;
+        const location = { city, state };
         const { id } = req.params;
-        const drink = await Drink.getById(id);
+        const drink = await Drink.getById(id, location);
         return res.json({drink});
     } catch(e) {
         return next(e);
@@ -81,5 +86,25 @@ router.delete('/:id', checkForCorrectUserOrAdmin, async (req, res, next) => {
         return next(e);
     }
 });
+
+function unstringValues(obj) {
+    if (obj.page) {
+        obj.page = +obj.page;
+    }
+
+    if (obj.limit) {
+        obj.limit = +obj.limit;
+    }
+
+    if (obj.asc) {
+        if (+obj.asc === 0) {
+            obj.asc = false;
+        } else {
+            obj.asc = true;
+        }
+    }
+    return obj;
+}
+
 
 module.exports = router;

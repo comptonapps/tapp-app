@@ -14,6 +14,17 @@ const placeData = {
 
 }
 
+describe('Place.addLocationToQuery method', () => {
+    test('it should add location to WHERE clause', () => {
+        let str = 'SELECT * FROM places';
+        let vars = [];
+        [str, vars] = Place.addLocationToQuery(str, vars, { city: "Seattle", state: 'WA'});
+        expect(str).toEqual('SELECT * FROM places WHERE city=$1 AND state=$2');
+        expect(vars).toEqual(["Seattle", "WA"]);
+
+    })
+});
+
 describe('Place.create method', () => {
     test('it should create and return a place', async () => {
         place = await Place.create(placeData);

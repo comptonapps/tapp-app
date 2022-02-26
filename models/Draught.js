@@ -1,11 +1,21 @@
 const { DB_TABLES } = require('../constants');
 const DRAUGHTS = DB_TABLES.DRAUGHTS;
 const DB = require('../helpers/DB');
+const { ExpressError } = require('../expressError');
 
 class Draughts {
     static async create(data) {
         return await DB.create(DRAUGHTS, data);
     };
+
+    // static async create(data) {
+    //     try {
+    //         return await DB.create(DRAUGHTS, data);
+    //     } catch(e) {
+    //         return e;
+    //     }
+        
+    // };
 
     static async get() {
         return await DB.getRecords(DRAUGHTS);

@@ -1,6 +1,7 @@
 const Place = require('../models/Place');
 const Drink = require('../models/Drink');
 const PlaceOwner = require('../models/PlaceOwner');
+const { ExpressError } = require('../expressError');
 
 async function verifyPlace(req, res, next) {
     try {
@@ -33,7 +34,7 @@ async function verifyOwnership(req, res, next) {
         await PlaceOwner.getByIds(user.id, place_id);
         return next();
     } catch(e) {
-        return next(e);
+        return next(new ExpressError("no access", 403));
     }
 };
 

@@ -10,7 +10,9 @@
             "name": "Molly MacGuire Porter",
             "maker": "Byte Me Brewing Company",
             "untappd_id": "345678",
-            "abv": "5.6"
+            "abv": "5.6",
+            "description" : "A fruity aroma....",
+            "img_url": "https://www.images.com/4567.jpg"
         }
     ],
     "required": [
@@ -61,6 +63,26 @@
             "default": "",
             "examples": [
                 "5.6"
+            ]
+        },
+        "description": {
+            "$id": "#/properties/description",
+            "type": "string",
+            "title": "The description schema",
+            "description": "A string describing the drink",
+            "default": "",
+            "examples": [
+                "Barley notes are off the charts in this incredible ale."
+            ]
+        },
+        "img_url": {
+            "$id": "#/properties/img_url",
+            "type": "string",
+            "title": "The img_url schema",
+            "description": "A string representing the URL in which the label image can be found",
+            "default": "",
+            "examples": [
+                "https://www.unsplashed.com/images/img_003.jpg"
             ]
         }
     },
