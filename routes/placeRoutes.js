@@ -103,14 +103,15 @@ router.patch(
         }
 });
 
-router.patch('/:id', checkForCorrectUserOrAdmin, async (req, res, next) => {
+router.patch('/:place_id', verifyOwnership, async (req, res, next) => {
     try {
         const placeData = req.body;
-        const { id } = req.params;
+        const { place_id:id } = req.params;
         schemaValidator(placeData, placeUpdateSchema);
         const place = await Place.update(id, placeData);
         return res.json({place});
     } catch(e) {
+        console.log(e);
         return next(e);
     }
 });

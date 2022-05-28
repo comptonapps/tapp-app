@@ -1,61 +1,53 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "http://example.com/example.json",
-    "type": "object",
-    "title": "The root schema",
-    "description": "The root schema comprises the entire JSON document.",
-    "default": {},
-    "examples": [
-        {
-            "page": 2,
-            "limit": 25,
-            "sort": "name",
-            "asc": false
-        }
-    ],
-    "required": [],
-    "properties": {
-        "page": {
-            "$id": "#/properties/page",
-            "type": "integer",
-            "title": "The page schema",
-            "minimum" : 1,
-            "description": "An explanation about the purpose of this instance.",
-            "default": 0,
-            "examples": [
-                2
-            ]
-        },
-        "limit": {
-            "$id": "#/properties/limit",
-            "type": "integer",
-            "title": "The limit schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": 0,
-            "examples": [
-                25
-            ]
-        },
-        "sort": {
-            "$id": "#/properties/sort",
-            "type": "string",
-            "title": "The sort schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": "",
-            "examples": [
-                "name"
-            ]
-        },
-        "asc": {
-            "$id": "#/properties/asc",
-            "type": "boolean",
-            "title": "The asc schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": false,
-            "examples": [
-                false
-            ]
-        }
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "page": 2,
+      "limit": 25,
+      "sort": "name",
+      "asc": false
+    }
+  ],
+  "required": [],
+  "properties": {
+    "page": {
+      "$id": "#/properties/page",
+      "type": "integer",
+      "title": "The page schema",
+      "minimum": 1,
+      "description": "An explanation about the purpose of this instance.",
+      "default": 0,
+      "examples": [2]
     },
-    "additionalProperties": true
+    "limit": {
+      "$id": "#/properties/limit",
+      "type": "integer",
+      "title": "The limit schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": 0,
+      "examples": [25]
+    },
+    "sort": {
+      "$id": "#/properties/sort",
+      "type": "string",
+      "title": "The sort schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": ["name"]
+    },
+    "asc": {
+      "$id": "#/properties/asc",
+      "type": "boolean",
+      "title": "The asc schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": false,
+      "examples": [false]
+    }
+  },
+  "additionalProperties": true
 }

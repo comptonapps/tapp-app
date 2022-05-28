@@ -32,6 +32,13 @@ router.get('/untappd', async (req, res, next) => {
     }
 });
 
+router.get('/search', async (req,res,next) => {
+    const { q } = req.query;
+    const decodedQuery = decodeURIComponent(q);
+    const drinks = await Drink.searchDrinks(decodedQuery);
+    return res.json({drinks});
+});
+
 router.get('/:id', userIsAuthenticated, async (req, res, next) => {
     try {
         const { city, state } = req.query;

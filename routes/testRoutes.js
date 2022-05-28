@@ -1,15 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../db');
-const Drink = require('../models/Drink');
+const db = require("../db");
+const Drink = require("../models/Drink");
 
-router.get('/', async (req, res, next) => {
-    try {
-        const location = { city, state } = req.params;
-        const dataResponse = { user: 1 }
-        //   SELECT user.*, json_agg(pr) from (SELECT * FROM place_ratings WHERE user_id=user.id) as place_ratings
-        //const dbRes = await db.query('SELECT rating, row_to_json(place) AS place FROM (SELECT * FROM places) AS place LEFT JOIN place_ratings ON place_id=place.id WHERE user_id=1');
-        const dbRes = await db.query(`
+router.get("/", async (req, res, next) => {
+  try {
+    const location = ({ city, state } = req.params);
+    const dataResponse = { user: 1 };
+    //   SELECT user.*, json_agg(pr) from (SELECT * FROM place_ratings WHERE user_id=user.id) as place_ratings
+    //const dbRes = await db.query('SELECT rating, row_to_json(place) AS place FROM (SELECT * FROM places) AS place LEFT JOIN place_ratings ON place_id=place.id WHERE user_id=1');
+    const dbRes = await db.query(
+      `
             SELECT id, username, first_name, last_name, email, city, state, zip, created_at, updated_at, 
             (SELECT json_agg(res) AS place_ratings from 
                 (SELECT user_id, place_id, rating, 
@@ -21,22 +22,24 @@ router.get('/', async (req, res, next) => {
                         (SELECT row_to_json(drk) AS drink FROM 
                         (SELECT * FROM drinks WHERE drinks.id=drink_id) AS drk) 
                         FROM drink_ratings WHERE user_id=$1) as dres) AS drink_ratings 
-                FROM users WHERE id=$1`, [1]);
-        const place_ratings = dbRes.rows;
-        dataResponse.place_ratings = dbRes.rows;
-        return res.json({user: dbRes.rows[0]});
-    } catch (e) {
-        return next(e);
-    }
+                FROM users WHERE id=$1`,
+      [1]
+    );
+    const place_ratings = dbRes.rows;
+    dataResponse.place_ratings = dbRes.rows;
+    return res.json({ user: dbRes.rows[0] });
+  } catch (e) {
+    return next(e);
+  }
 });
 
-router.get('/uid', async (req, res, next) => {
-    try {
-        const drink = await Drink.getByUntappdId(22222222222222);
-        return res.json({drink});
-    } catch(e) {
-        return next(e);
-    }
+router.get("/uid", async (req, res, next) => {
+  try {
+    const drink = await Drink.getByUntappdId(22222222222222);
+    return res.json({ drink });
+  } catch (e) {
+    return next(e);
+  }
 });
 
 /* Which entities need sorting for search?  Drinks by name A-Z and by rating.  Places by location (city, state), name A-Z, rating.
