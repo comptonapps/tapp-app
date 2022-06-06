@@ -21,7 +21,9 @@ describe("Place.addLocationToQuery method", () => {
       city: "Seattle",
       state: "WA"
     });
-    expect(str).toEqual("SELECT * FROM places WHERE city=$1 AND state=$2");
+    expect(str).toEqual(
+      "SELECT * FROM places WHERE city ILIKE '%' || $1 || '%' AND state ILIKE '%' || $2 || '%'"
+    );
     expect(vars).toEqual(["Seattle", "WA"]);
   });
 });
@@ -33,22 +35,29 @@ describe("Place.create method", () => {
       ...placeData,
       id: expect.any(Number),
       created_at: expect.any(Date),
-      updated_at: expect.any(Date)
+      updated_at: expect.any(Date),
+      lat: null,
+      lng: null
     });
   });
 });
 
 describe("Place.get method", () => {
   test("it should return an array of places", async () => {
-    const places = await Place.get();
-    expect(places).toEqual([place]);
+    const places = await Place.get({});
+    expect(places).toEqual([{ ...place, num_ratings: "0", rating: null }]);
   });
 });
 
 describe("Place.getById method", () => {
   test("it should return place data matching a passed in id", async () => {
     const p = await Place.getById(place.id);
-    expect(p).toEqual(place);
+    expect(p).toEqual({
+      ...place,
+      drinks: expect.any(Array),
+      num_ratings: "0",
+      rating: null
+    });
   });
 });
 

@@ -14,8 +14,8 @@ class DB {
       const results = await this.query(str, variables);
       return results.rows[0];
     } catch (e) {
+      console.log("the error: ", e);
       if (e.code && e.code === "23505") {
-        console.log("inside the create from DB");
         const message =
           table === DB_TABLES.USERS
             ? "Username or email already in use"

@@ -25,7 +25,6 @@ describe("GET /places", () => {
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toEqual(200);
     expect(response.body.places).toHaveLength(places.length);
-    expect(response.body.places).toEqual(places);
     expect(response.body.places[0].id).toEqual(places[0].id);
     expect(response.body.places[0].name).toEqual(places[0].name);
     expect(response.body.places[1].id).toEqual(places[1].id);
@@ -50,7 +49,12 @@ describe("GET /place/:id", () => {
       .get(`/place/${places[0].id}`)
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(200);
-    expect(response.body.place).toEqual(places[0]);
+    expect(response.body.place).toEqual({
+      ...places[0],
+      drinks: expect.any(Array),
+      num_ratings: "1",
+      rating: "4.0000000000000000"
+    });
   });
 
   test("it should return a 403 error if there is no token", async () => {

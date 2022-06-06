@@ -30,6 +30,9 @@ async function testBeforeAll() {
     await User.create({
       username: "testUser1",
       password: "7y6y5y4y",
+      first_name: "fred",
+      last_name: "durst",
+      zip: "45677",
       city: "Seattle",
       state: "WA",
       email: "tu1@tu1.com"
@@ -37,6 +40,7 @@ async function testBeforeAll() {
   );
 
   tokens.user = JWT.getJWT(users[0]);
+  userToken = JWT.getJWT(users[0]);
 
   users[1] = dateToStringConversion(
     await User.create({
@@ -44,11 +48,15 @@ async function testBeforeAll() {
       password: "7y6y5y4y",
       city: "Seattle",
       state: "WA",
-      email: "tu2@tu1.com"
+      email: "tu2@tu1.com",
+      first_name: "fred",
+      last_name: "durst",
+      zip: "45677"
     })
   );
 
   tokens.admin = JWT.getJWT({ ...users[1], is_admin: true });
+  adminToken = JWT.getJWT({ ...users[1], is_admin: true });
 
   users[2] = dateToStringConversion(
     await User.create({
@@ -56,7 +64,10 @@ async function testBeforeAll() {
       password: "7y6y5y4y",
       city: "Seattle",
       state: "WA",
-      email: "tu3@tu1.com"
+      email: "tu3@tu1.com",
+      first_name: "fred",
+      last_name: "durst",
+      zip: "45677"
     })
   );
 
@@ -125,6 +136,7 @@ async function testBeforeAll() {
       await PlaceOwner.createRelationship(users[1].id, places[1].id)
     )
   );
+  console.log("FASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFSADFSADFASDFASDF");
 }
 
 async function testBeforeEach() {

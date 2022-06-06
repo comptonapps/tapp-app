@@ -1,5 +1,6 @@
 const DB = require("../helpers/DB");
 const { DB_TABLES, DRINKS_SORT_OPTIONS } = require("../constants");
+const { RecordNotFoundError } = require("../expressError");
 
 class Drink {
   static async create(data) {
@@ -19,6 +20,7 @@ class Drink {
                        ON drink_id=id GROUP BY id`;
     let vars = [];
     if (!Object.keys(queryFilters).length) {
+      str += " ORDER BY drinks.id";
       const results = await DB.query(str, vars);
       return results.rows;
     } else {
@@ -44,37 +46,38 @@ class Drink {
   }
 
   static async getById(id, location = null) {
-    try {
-      const str = `SELECT drinks.*, (SELECT AVG(rating) FROM drink_ratings WHERE drink_id=${id}) as rating,
+    const str = `SELECT drinks.*, (SELECT AVG(rating) FROM drink_ratings WHERE drink_id=${id}) as rating,
         (SELECT COUNT(rating) FROM drink_ratings WHERE drink_id=${id}) as num_ratings
         FROM drinks
         WHERE id=${id}`;
-      const vars = [];
-      const drinkResult = await DB.query(str, vars);
-      const drink = drinkResult.rows[0];
+    const vars = [];
+    const drinkResult = await DB.query(str, vars);
+    if (drinkResult.rows.length === 0) {
+      throw new RecordNotFoundError();
+    }
+    const drink = drinkResult.rows[0];
+    if (location) {
       const draughtResults = await DB.query(
         `
-            SELECT places.*, AVG(rating) as rating, COUNT(rating) as num_ratings FROM places 
-            LEFT JOIN place_ratings 
-            ON place_ratings.place_id=id 
-            LEFT JOIN draughts 
-            ON draughts.place_id=id 
-            AND drink_id=${id} 
-            AND active=true 
-            WHERE draughts.place_id 
-            IN (SELECT id FROM places 
-                WHERE city ILIKE '%' || $1 || '%' 
-                AND state ILIKE '%' || $2 || '%') 
-            GROUP BY id`,
+              SELECT places.*, AVG(rating) as rating, COUNT(rating) as num_ratings FROM places 
+              LEFT JOIN place_ratings 
+              ON place_ratings.place_id=id 
+              LEFT JOIN draughts 
+              ON draughts.place_id=id 
+              AND drink_id=${id} 
+              AND active=true 
+              WHERE draughts.place_id 
+              IN (SELECT id FROM places 
+                  WHERE city ILIKE '%' || $1 || '%' 
+                  AND state ILIKE '%' || $2 || '%') 
+              GROUP BY id`,
         [location.city, location.state]
       );
       const places = draughtResults.rows;
-      console.log(drink);
       drink.places = places;
-      return drink;
-    } catch (e) {
-      console.log(e);
     }
+    return drink;
+
     //return await DB.getRecord(DB_TABLES.DRINKS, {id});
   }
 

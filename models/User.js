@@ -1,6 +1,7 @@
 const DB = require("../helpers/DB");
 const { DB_TABLES, BCRYPT_WORK_FACTOR } = require("../constants");
 const bcrypt = require("bcrypt");
+const { RecordNotFoundError } = require("../expressError");
 
 class User {
   static async create(data) {
@@ -38,7 +39,7 @@ class User {
     //                 FROM place_owners WHERE user_id=$1) as ores)
     //     FROM users WHERE id=$1`, [id]);
 
-    return await DB.query(
+    const res = await DB.query(
       `
         SELECT id, username, first_name, last_name, email, city, state, zip, is_admin, created_at, updated_at,
         (SELECT json_agg(res) AS place_ratings from 
@@ -64,6 +65,11 @@ class User {
             FROM users WHERE id=$1`,
       [id]
     );
+
+    if (res.rows.length === 0) {
+      throw new RecordNotFoundError("User Not Found", 404);
+    }
+    return res;
   }
 
   static async update(id, data) {

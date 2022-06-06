@@ -27,6 +27,8 @@ class Place {
       if (queryFilters.sort) {
         validateSortOption(queryFilters.sort, PLACES_SORT_OPTIONS);
         str += ` ORDER BY ${queryFilters.sort}`;
+      } else {
+        str += " ORDER BY places.id";
       }
 
       if (queryFilters.asc === false) {
@@ -55,7 +57,6 @@ class Place {
     let vars = [];
     const placeResults = await DB.query(str, vars);
     const place = placeResults.rows[0];
-    console.log(place);
     const draughtResults = await DB.query(`
             SELECT drinks.*, AVG(rating) as rating,
             COUNT(rating) as num_ratings
@@ -67,7 +68,6 @@ class Place {
             AND active=true
             WHERE draughts.place_id=${+id}
             GROUP BY drinks.id`);
-    console.log(draughtResults.rows);
     place.drinks = draughtResults.rows;
     return place;
     //return await DB.getRecord(DB_TABLES.PLACES, { id });

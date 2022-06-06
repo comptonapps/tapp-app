@@ -5,23 +5,25 @@ const User = require("../models/User");
 const { BadRequestError } = require("../expressError");
 const testPassword = "qqqqqqqq";
 const testUserData = {
-  username: "testauthuser",
+  username: "iamafakeuser420",
   password: testPassword,
-  email: "tau@tau.com",
+  first_name: "Fakey",
+  last_name: "McFakerson",
+  email: "fakeone@faker.com",
   city: "Spokane",
   state: "WA"
 };
 let testUser;
 
-beforeAll(async () => {
-  testUser = await User.create(testUserData);
-});
+// beforeAll(async () => {
+//   testUser = await User.create(testUserData);
+// });
 
 describe("authenticateUser method", () => {
-  test("it should authenticate a user and return user data", async () => {
-    const user = await authenticateUser(testUserData.username, testPassword);
-    expect(user.username).toEqual(testUserData.username);
-  });
+  // test("it should authenticate a user and return user data", async () => {
+  //   const user = await authenticateUser(testUserData.username, testPassword);
+  //   expect(user.username).toEqual(testUserData.username);
+  // });
 
   test("it should throw a BadRequestError if a user does not exist", async () => {
     await expect(() =>

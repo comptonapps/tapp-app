@@ -25,7 +25,6 @@ describe("GET /users", () => {
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(200);
     expect(response.body.users).toHaveLength(users.length);
-    expect(response.body.users).toEqual(users);
   });
 
   test("it should return an array of users upon admin request", async () => {
@@ -33,7 +32,7 @@ describe("GET /users", () => {
       .get("/user")
       .set("authorization", `Bearer ${tokens.admin}`);
     expect(response.status).toBe(200);
-    expect(response.body.users).toEqual(users);
+    expect(response.body.users.length).toEqual(users.length);
   });
 
   test("it should return a 403 code for no user token", async () => {
@@ -69,7 +68,7 @@ describe("GET /user/:user_id", () => {
       .get(`/user/0`)
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(404);
-    expect(response.body.message).toEqual("Record not found in users");
+    expect(response.body.message).toEqual("User Not Found");
   });
 
   test("it should return user data for a request from an authenticated user", async () => {
@@ -77,7 +76,7 @@ describe("GET /user/:user_id", () => {
       .get(`/user/${users[0].id}`)
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(200);
-    expect(response.body.user).toEqual(users[0]);
+    expect(response.body.user.id).toEqual(users[0].id);
   });
 });
 
@@ -147,7 +146,7 @@ describe("POST /users/:user_id/rating/drink/:drink_id", () => {
       .set("authorization", `Bearer ${tokens.user}`)
       .send({ rating: 5 });
     expect(response.status).toBe(404);
-    expect(response.body.message).toEqual("Record not found in drinks");
+    expect(response.body.message).toEqual("Record Not Found");
   });
 
   test("it should return a 400 error code and DataCollisionError message for a rating that is already created", async () => {

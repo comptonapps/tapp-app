@@ -200,7 +200,6 @@ router.delete(
   checkForCorrectUserOrAdmin,
   async (req, res, next) => {
     try {
-      console.log("deleting");
       const { user_id, drink_id } = req.params;
       await DrinkRating.delete(+user_id, +drink_id);
       return res.json({ msg: "deleted" });

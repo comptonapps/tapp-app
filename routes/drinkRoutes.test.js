@@ -25,7 +25,6 @@ describe("GET /drink", () => {
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(200);
     expect(response.body.drinks).toHaveLength(drinks.length);
-    expect(response.body.drinks).toEqual(drinks);
   });
 
   test("it should respond with a 403 code for a non authenticated user", async () => {
@@ -40,7 +39,12 @@ describe("GET /drink/:id", () => {
       .get(`/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.user}`);
     const { drink } = response.body;
-    expect(drink).toEqual(drinks[0]);
+    expect(drink).toEqual({
+      ...drinks[0],
+      num_ratings: "1",
+      places: expect.any(Array),
+      rating: "2.0000000000000000"
+    });
   });
 
   test("it should respond with an error message and 404 code for a non-existent drink", async () => {
@@ -48,7 +52,7 @@ describe("GET /drink/:id", () => {
       .get(`/drink/0`)
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(404);
-    expect(response.body.message).toEqual("Record not found in drinks");
+    expect(response.body.message).toEqual("Record Not Found");
   });
 
   test("it should respond with an error message and 403 code for a non authenticated user", async () => {

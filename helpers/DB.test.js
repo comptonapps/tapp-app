@@ -8,8 +8,11 @@ let testUser1Data = {
   username: "testUser1",
   password: "foobar11",
   email: "tu1@testing.com",
+  first_name: "jason",
+  last_name: "voorhees",
   city: "Richmond",
-  state: "VA"
+  state: "VA",
+  zip: "88888"
 };
 let testUser1;
 
@@ -17,9 +20,9 @@ beforeAll(async () => {
   const result = await db.query(
     `
         INSERT INTO users
-        (username, password, email, city, state)
+        (username, password, email, first_name, last_name, city, state, zip)
         VALUES
-        ($1, $2, $3, $4, $5) RETURNING *`,
+        ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
     Object.values(testUser1Data)
   );
   testUser1 = result.rows[0];
@@ -78,7 +81,7 @@ describe("DB.getRecord method", () => {
 describe("DB.getRecords method", () => {
   test("it should return an array of records", async () => {
     const users = await DB.getRecords(DB_TABLES.USERS);
-    expect(users).toEqual([testUser1]);
+    expect(users).toHaveLength(1);
   });
 });
 

@@ -7,7 +7,6 @@ const getLatLng = async components => {
   const res = await axios.get(
     `${apiStub}${getURIComponents(components)}&key=${apiKey}`
   );
-  console.log(res);
   if (!res.data.results[0]) {
     throw new BadRequestError("Invalid Address");
   }

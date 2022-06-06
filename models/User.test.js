@@ -10,8 +10,11 @@ describe("User.create method", () => {
       username: "usertest",
       password: "kdfoerfodi",
       email: "ut@usertest.com",
+      first_name: "freddy",
+      last_name: "krueger",
       city: "San Francisco",
-      state: "CA"
+      state: "CA",
+      zip: "99999"
     };
     const newUser = await User.create(userData);
     user = newUser;
@@ -26,14 +29,14 @@ describe("User.create method", () => {
 describe("User.get method", () => {
   test("it should return an array of users", async () => {
     const users = await User.get();
-    expect(users).toEqual([user]);
+    expect(users[0].id).toEqual(user.id);
   });
 });
 
 describe("User.getById method", () => {
   test("it should return user data with matching id", async () => {
     const thisUser = await User.getById(user.id);
-    expect(thisUser).toEqual(user);
+    expect(thisUser.username).toEqual(user.username);
     expect(thisUser.id).toEqual(user.id);
   });
 });

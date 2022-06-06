@@ -40,15 +40,35 @@ describe("Drink.create method", () => {
 describe("Drink.get method", () => {
   test("it should return a list of all drinks", async () => {
     const drinks = await Drink.get();
-    expect(drinks).toEqual([d1, d2, d3]);
-    expect(1).toBe(1);
+    expect(drinks).toHaveLength(3);
+    expect(drinks).toEqual([
+      {
+        ...d1,
+        num_ratings: "0",
+        rating: null
+      },
+      {
+        ...d2,
+        num_ratings: "0",
+        rating: null
+      },
+      {
+        ...d3,
+        num_ratings: "0",
+        rating: null
+      }
+    ]);
   });
 });
 
 describe("Drink.getById method", () => {
   test("it should return a drink", async () => {
-    const drink = await Drink.getById(d1.id);
-    expect(drink).toEqual(d1);
+    const drink = await Drink.getById(d3.id);
+    expect(drink).toEqual({
+      ...d3,
+      num_ratings: "0",
+      rating: null
+    });
   });
 });
 
