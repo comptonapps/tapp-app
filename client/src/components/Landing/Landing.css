@@ -1,0 +1,45 @@
+.Landing {
+    background-image: url('../../images/landing.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.Landing-message {
+    border: 2px solid grey;
+    background-color: rgba(200, 200, 200, 0.8);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Landing-message p {
+    color: black;
+    font-weight: 700;
+}
+
+.Landing-message a {
+    padding: 8px;
+    border: 4px solid black;
+    margin-top: 8px;
+    background-color: rgb(17, 176, 177);
+    color: var(--softer-white);
+    font-weight: 700;
+}
+
+.Landing-message a:hover {
+    background-color: rgba(200, 200, 200);
+    color: rgb(17, 176, 177);
+    
+}
+
+.Landing-message a:active {
+    background-color: black;
+    color: white;
+}

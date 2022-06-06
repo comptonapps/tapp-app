@@ -1,0 +1,12 @@
+.PageTitle {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    background-color: var(--dark-opaque);
+    color: var(--softer-white);
+    padding: 12px;
+    font-size: 64px;
+    text-transform: lowercase;
+    font-family: 'Flamenco', serif;
+}

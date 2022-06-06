@@ -1,0 +1,9 @@
+.PlaceInfo {
+    background-color: black;
+    padding: 18px;
+    
+}
+
+.PlaceInfo h1, h2, h3, p {
+    color: var(--softer-white);
+}

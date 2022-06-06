@@ -1,0 +1,8 @@
+.SectionTitle {
+    width: 100%;
+    max-width: 900px;
+    background-color: black;
+    margin: 12px auto;
+    padding: 12px;
+    text-transform: uppercase;
+}

@@ -1,0 +1,9 @@
+.stars {
+    margin-left: 12px;
+}
+
+@media(max-width: 768px) {
+    .DrinkRating {
+        margin-top: 18px;
+    }
+}

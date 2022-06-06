@@ -1,0 +1,57 @@
+.SearchUntappd {
+    border: 2px solid white;
+    border-radius: 8px;
+    height: 80%;
+    max-height: 600px;
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.SearchUntappd-header form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-bottom: 2px solid darkgrey;
+}
+
+.SearchUntappd-header form input {
+    flex: 1;
+    height: 30px;
+    border-radius: 4px;
+    border: none;
+    margin-right: 6px;
+    padding: 0 8px;
+}
+
+.SearchUntappd-header form button {
+    padding: 6px;
+    border-radius: 2px;
+    margin: 0 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.SearchUntappd-header form label {
+    display: none;
+}
+
+.SearchUntappd h1 {
+    color: var(--softer-white);
+    text-transform: uppercase;
+    padding: 8px;
+    background-color: black;
+}
+
+
+
+.results-container {
+   flex: 1;
+   overflow: scroll;
+   background-color: darkgrey;
+   padding: 0 4px;
+}
+

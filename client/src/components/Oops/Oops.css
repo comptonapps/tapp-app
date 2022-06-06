@@ -1,0 +1,8 @@
+.Oops h1 {
+    color: var(--softer-white);
+    margin-bottom: 24px;
+}
+
+.Oops button {
+    margin: 0 auto;
+}

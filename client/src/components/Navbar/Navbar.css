@@ -1,0 +1,38 @@
+.Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--navbar-bcolor);
+    height: var(--navbar-height);
+}
+
+.Navbar-brand {
+    margin-left: 24px;
+}
+
+.Navbar-brand p {
+    color: var(--softer-white);
+    font-size: 1.4rem;
+}
+
+.Navbar-menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+}
+
+.Navbar-menu a {
+    height: 100%;
+}
+
+.Navbar-menu li{
+    color: var(--navbar-tcolor);
+    padding: 0 12px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

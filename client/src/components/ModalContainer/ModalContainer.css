@@ -1,0 +1,19 @@
+.ModalContainer {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--dark-opaque);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: scroll;
+}
+
+.GMap {
+    height: 400px;
+    width: 400px;
+}

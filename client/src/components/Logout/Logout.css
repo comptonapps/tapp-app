@@ -1,0 +1,16 @@
+.Logout-container {
+    margin: 0 auto;
+    width: 50%;
+    min-width: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+
+}
+
+.Logout-container h1 {
+    margin-bottom: 24px;
+    color: var(--softer-white);
+}

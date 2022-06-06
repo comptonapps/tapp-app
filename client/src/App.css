@@ -1,0 +1,59 @@
+:root {
+  --navbar-bcolor: rgb(48, 47, 47);
+  --navbar-tcolor: rgb(191, 190, 190);
+  --navbar-height: 80px;
+  --light-opaque: rgba(0, 0, 0, 0.3);
+  --dark-opaque: rgba(0,0,0,0.8);
+  --max-content-width: 900px;
+  --softer-white: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: black;
+}
+
+body, html {
+  height: 100vh;
+}
+
+.App {
+  text-align: center;
+  height: 100%;
+  overflow: hidden;
+  background-color: grey;
+  background-image: url('./images/app.jpg');
+}
+
+a {
+  text-decoration: none;
+}
+
+.link-btn {
+  border: none;
+  padding: 0;
+}
+.std-btn {
+  height: 30px;
+  border: 4px solid white;
+  padding: 8px;
+  color: var(--softer-white);
+  background-color: var(--dark-opaque);
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.std-btn:active {
+  background-color: var(--softer-white);
+  color: black;
+}
+
+.std-btn:hover {
+  cursor: pointer;
+}

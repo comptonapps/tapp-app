@@ -1,0 +1,27 @@
+.PageHeader {
+    width: 100%;
+    max-width: 900px;
+    margin: 12px auto;
+    background-color: var(--dark-opaque);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.PageHeader h1, h2, h3, p {
+    color: var(--softer-white);
+}
+
+@media(max-width: 768px) {
+    .PageHeader {
+        flex-direction: column;
+    }
+    
+    .PageHeader h1, h2, h3, p {
+        color: var(--softer-white);
+        text-align: center;
+    }
+    
+}
+
