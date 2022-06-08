@@ -20,7 +20,8 @@ export const getDrinks = () => {
       dispatch({ type: DRINKS_REQUEST });
       const { currentPage, limit } = getState().drinkState;
       const response = await Axios.get(
-        `${API_DRINK_ENDPOINT}?limit=${limit}&page=${currentPage + 1}&sort=name`
+        `/api/${API_DRINK_ENDPOINT}?limit=${limit}&page=${currentPage +
+          1}&sort=name`
       );
       dispatch(gotDrinks(response.data.drinks));
     } catch (e) {
