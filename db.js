@@ -1,17 +1,13 @@
 require("dotenv").config();
 const { Client } = require("pg");
 
-let URI =
+const URI =
   process.env.NODE_ENV === "test"
     ? process.env.DB_URI_TEST
     : process.env.DB_URI;
 
-if (process.env.NODE_ENV === "production") {
-  URI = process.env.DATABASE_URL;
-}
-
 const db = new Client({
-  connectionString: `postgresql:///${URI}`
+  connectionString: process.env.DATABASE_URL || `postgresql:///${URI}`
 });
 
 db.connect();
