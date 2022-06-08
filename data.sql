@@ -1,8 +1,8 @@
-DROP DATABASE wat_db;
+-- DROP DATABASE wat_db;
 
-CREATE DATABASE wat_db;
+-- CREATE DATABASE wat_db;
 
-\c wat_db;
+-- \c wat_db;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
