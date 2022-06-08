@@ -1,13 +1,11 @@
-import './App.css';
-import React, { useEffect } from 'react';
-import Navbar from './components/Navbar/Navbar';
-import Routes from './components/Routes';
-import { useSelector, useDispatch } from 'react-redux';
-import { refreshSessionUser } from './action/creators/session';
-import {
-  ToastContainer, toast
-} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import "./App.css";
+import React, { useEffect } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import Routes from "./components/Routes";
+import { useSelector, useDispatch } from "react-redux";
+import { refreshSessionUser } from "./action/creators/session";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const user = useSelector(st => st.sessionState.user);
@@ -21,7 +19,7 @@ function App() {
 
   useEffect(() => {
     if (notification) {
-      toast(notification)
+      toast(notification);
     }
   }, [notification]);
   return (
@@ -30,7 +28,6 @@ function App() {
       <Navbar />
       <Routes />
     </div>
-
   );
 }
 

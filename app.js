@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const path = require("path");
 const { ExpressError } = require("./expressError");
 const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require("./routes/authRoutes");
@@ -18,15 +19,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(authenticateJWT);
 app.use(morgan("dev"));
 
-app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
-app.use("/place", placeRoutes);
-app.use("/drink", drinkRoutes);
-app.use("/test", testRoutes);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
-app.get("/", (req, res) => {
-  return res.json({ foo: "bar" });
-});
+app.use("api/auth", authRoutes);
+app.use("api/user", userRoutes);
+app.use("api/place", placeRoutes);
+app.use("api/drink", drinkRoutes);
+app.use("api/test", testRoutes);
 
 app.use((req, res, next) => {
   const error = new ExpressError("Resource not Found", 404);

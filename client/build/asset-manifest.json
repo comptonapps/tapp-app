@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0ed74d6c.css",
+    "main.js": "/static/js/main.9a5cb0d6.js",
+    "static/js/787.809e7791.chunk.js": "/static/js/787.809e7791.chunk.js",
+    "static/media/landing.jpg": "/static/media/landing.3a39d0e61ba51e3271a4.jpg",
+    "static/media/drink.jpg": "/static/media/drink.1a8f462d33d49a9e10f0.jpg",
+    "static/media/places.jpg": "/static/media/places.0ffea3d9de3afd253916.jpg",
+    "static/media/place.jpg": "/static/media/place.bdc9f519f237ecdb4a9a.jpg",
+    "static/media/drinks.jpg": "/static/media/drinks.c5efafbbf9b81241256b.jpg",
+    "static/media/app.jpg": "/static/media/app.9e6ec6139b1a81979503.jpg",
+    "static/media/default_beer.jpg": "/static/media/default_beer.d7aa5173e6694294a614.jpg",
+    "index.html": "/index.html",
+    "main.0ed74d6c.css.map": "/static/css/main.0ed74d6c.css.map",
+    "main.9a5cb0d6.js.map": "/static/js/main.9a5cb0d6.js.map",
+    "787.809e7791.chunk.js.map": "/static/js/787.809e7791.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0ed74d6c.css",
+    "static/js/main.9a5cb0d6.js"
+  ]
+}
