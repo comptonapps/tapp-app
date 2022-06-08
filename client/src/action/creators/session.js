@@ -28,10 +28,7 @@ export const loginUser = loginData => {
   return async function(dispatch) {
     try {
       dispatch({ type: AUTH_REQUEST });
-      const response = await Axios.post(
-        `/api/${API_LOGIN_ENDPOINT}`,
-        loginData
-      );
+      const response = await Axios.post(`/api${API_LOGIN_ENDPOINT}`, loginData);
       dispatch(loggedInUser({ ...response.data }));
       notify(`Welcome back, ${response.data.user.username}!`, dispatch);
     } catch (e) {
