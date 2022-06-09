@@ -22,7 +22,7 @@ db.query(
     for (let row of res.rows) {
       console.log(JSON.stringify(row));
     }
-    db.end();
+    //db.end();
   }
 );
 
