@@ -28,7 +28,7 @@ function EditPlace() {
   });
 
   const getDraughtData = async () => {
-    const response = await Axios.get(`/user/1/place/${place_id}`);
+    const response = await Axios.get(`/api/user/1/place/${place_id}`);
     console.log(response.data);
     setPlace(response.data.place);
   };

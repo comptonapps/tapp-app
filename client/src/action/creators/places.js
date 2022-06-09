@@ -22,7 +22,7 @@ export const getPlaces = () => {
       const { currentPage: page, limit } = getState().placeState;
       const { preferredLocation } = getState().sessionState;
       const response = await Axios.get(
-        `${API_PLACE_ENDPOINT}?city=${preferredLocation.city}&state=${
+        `/api${API_PLACE_ENDPOINT}?city=${preferredLocation.city}&state=${
           preferredLocation.state
         }&page=${page + 1}&limit=${limit}`
       );
@@ -36,7 +36,7 @@ export const createPlace = (placeData, completion) => {
     try {
       const userId = getState().sessionState.user.id;
       dispatch({ type: PLACES_REQUEST });
-      const response = await Axios.post(`/user/${userId}/place`, placeData);
+      const response = await Axios.post(`/api/user/${userId}/place`, placeData);
       dispatch(createdPlace(response.data));
       return completion(response.data.place.id);
     } catch (e) {
@@ -77,7 +77,7 @@ export const updatePlace = (placeId, placeData, completion) => {
       const userId = getState().sessionState.user.id;
       dispatch({ type: PLACES_REQUEST });
       const response = await Axios.patch(
-        `${API_PLACE_ENDPOINT}/${placeId}`,
+        `/api${API_PLACE_ENDPOINT}/${placeId}`,
         placeData
       );
       dispatch(updatedPlace(response.data.place));

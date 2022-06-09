@@ -35,7 +35,7 @@ function Drink() {
     try {
       const { city, state } = preferredLocation;
       const response = await Axios.get(
-        `${API_DRINK_ENDPOINT}/${id}?city=${city}&state=${state}`
+        `/api${API_DRINK_ENDPOINT}/${id}?city=${city}&state=${state}`
       );
       const drink = response.data.drink;
       const placeList = drink.places;

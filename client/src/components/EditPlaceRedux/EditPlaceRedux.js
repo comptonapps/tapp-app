@@ -39,7 +39,7 @@ function EditPlaceRedux() {
       try {
         dispatch({ type: EDIT_PLACE_REQUEST });
         const response = await Axios.get(
-          `${API_USER_ENDPOINT}/${userId}${API_PLACE_ENDPOINT}/${id}`
+          `/api${API_USER_ENDPOINT}/${userId}${API_PLACE_ENDPOINT}/${id}`
         );
         dispatch(gotDraughtData(response.data));
       } catch (e) {

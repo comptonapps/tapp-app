@@ -37,7 +37,7 @@ function Place() {
 
   const getPlaceData = async () => {
     try {
-      const response = await Axios.get(`${API_PLACE_ENDPOINT}/${id}`);
+      const response = await Axios.get(`/api${API_PLACE_ENDPOINT}/${id}`);
       const place = response.data.place;
       console.log(place);
       const drinks = place.drinks;

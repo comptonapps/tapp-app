@@ -23,7 +23,7 @@ function SearchUntappd({ toggle, place_id }) {
     evt.preventDefault();
     setFetchingData(true);
     const response = await Axios.get(
-      `/drink/untappd?q=${encodeURIComponent(formData)}`
+      `/api/drink/untappd?q=${encodeURIComponent(formData)}`
     );
     setSearchResults(response.data.results);
     setFormData("");
@@ -39,7 +39,7 @@ function SearchUntappd({ toggle, place_id }) {
     return async function(dispatch) {
       try {
         const response = await Axios.post(
-          `${API_PLACE_ENDPOINT}/${place_id}${API_DRAUGHT_ENDPOINT}/drink`,
+          `/api${API_PLACE_ENDPOINT}/${place_id}${API_DRAUGHT_ENDPOINT}/drink`,
           obj
         );
         console.log(response.data);

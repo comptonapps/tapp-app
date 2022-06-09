@@ -25,7 +25,7 @@ function EditDraughtCell({ draught, place_id }) {
       try {
         dispatch({ type: EDIT_PLACE_REQUEST });
         const response = await Axios.patch(
-          `/place/${place_id}/draught/drink/${id}`,
+          `/api/place/${place_id}/draught/drink/${id}`,
           { active: active }
         );
         dispatch(changedDraughtStatus(response.data));
@@ -48,7 +48,7 @@ function EditDraughtCell({ draught, place_id }) {
       try {
         dispatch({ type: EDIT_PLACE_REQUEST });
         const response = await Axios.delete(
-          `${API_PLACE_ENDPOINT}/${place_id}/draught${API_DRINK_ENDPOINT}/${drink_id}`
+          `/api${API_PLACE_ENDPOINT}/${place_id}/draught${API_DRINK_ENDPOINT}/${drink_id}`
         );
         console.log(response.status);
         dispatch({ type: DELETE_DRAUGHT_SUCCESS, payload: { id: drink_id } });
