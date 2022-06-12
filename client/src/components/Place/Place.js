@@ -8,7 +8,7 @@ import Axios from "../../helpers/Axios";
 import CONSTANTS from "../../constants";
 import GMap from "../Test/Gmap";
 import PlaceRating from "../PlaceRating/PlaceRating";
-import PageHeader from "../PageHeader/PageHeader";
+import PageHeader from "../PageHeader/PageHeader"; 
 
 const { API_PLACE_ENDPOINT } = CONSTANTS;
 
