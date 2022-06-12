@@ -24,7 +24,14 @@ app.use("/api/place", placeRoutes);
 app.use("/api/drink", drinkRoutes);
 app.use("/api/test", testRoutes);
 
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/place", placeRoutes);
+app.use("/api/drink", drinkRoutes);
+app.use("/api/test", testRoutes);
+
 if (process.env.NODE_ENV === "production") {
+  console.log("prod");
   app.use(express.static(path.join(__dirname, "client/build")));
 }
 
