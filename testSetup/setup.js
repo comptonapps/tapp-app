@@ -136,7 +136,6 @@ async function testBeforeAll() {
       await PlaceOwner.createRelationship(users[1].id, places[1].id)
     )
   );
-  console.log("FASDFASDFASDFASDFASDFASDFASDFASDFASDFASDFSADFSADFASDFASDF");
 }
 
 async function testBeforeEach() {

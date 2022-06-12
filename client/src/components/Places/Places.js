@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Page from "../Page/Page";
 import PageTitle from "../PageTitle/PageTitle";
 import { getPlaces } from "../../action/creators/places";
-import { Link } from "react-router-dom";
 import LocationWidget from "../LocationWidget/LocationWidget";
 import PlaceList from "../PlaceList/PlaceList";
 import SearchBar from "../SearchBar/SearchBar";
+import Axios from "../../helpers/Axios";
 
 function Places() {
   const dispatch = useDispatch();
@@ -24,45 +24,49 @@ function Places() {
     setSearchResults([]);
   };
 
-  const handleSearch = (evt, q) => {
+  const handleSearch = async (evt, q) => {
     evt.preventDefault();
+    const url = `http://localhost:3003/api/place/search?q=${q}&city=${preferredLocation.city}&state=${preferredLocation.state}`;
+    const queryResults = await Axios.get(url);
+    setSearchResults(queryResults.data.results);
   };
 
   if (hasMore && !sortedResults.length) {
-    <Page cls="Places">
-      <PageTitle title="places" />
-      <LocationWidget />
-      <SearchBar />
-      <h1>Loading....</h1>
-    </Page>;
+    return (
+      <Page cls="Places">
+        <PageTitle title="places" />
+        <LocationWidget />
+        <SearchBar />
+        <h1>Loading....</h1>
+      </Page>
+    );
   }
 
   if (!hasMore && !sortedResults.length) {
-    <Page cls="Places">
-      <PageTitle title="places" />
-      <LocationWidget />
-      <SearchBar />
-      <h1>No results found</h1>
-    </Page>;
+    return (
+      <Page cls="Places">
+        <PageTitle title="places" />
+        <LocationWidget />
+        <SearchBar />
+        <h1>No results found</h1>
+      </Page>
+    );
   }
-
-  //   <SearchBar
-  //         placeholder="Search Places"
-  //         clearResults={clearResults}
-  //         handleSearch={handleSearch}
-  //       />
 
   return (
     <Page cls="Places">
       <PageTitle title="places" />
       <LocationWidget />
+      <SearchBar
+        placeholder="Search Places"
+        clearResults={clearResults}
+        handleSearch={handleSearch}
+      />
       <PlaceList
         places={
-          searchResults.length > 0 ? (
-            <h1>Search Results Detected</h1>
-          ) : (
-            sortedResults.map(id => places[id])
-          )
+          searchResults && searchResults.length > 0
+            ? searchResults
+            : sortedResults.map(id => places[id])
         }
       />
     </Page>

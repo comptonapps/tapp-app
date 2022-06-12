@@ -14,7 +14,6 @@ const { API_PLACE_ENDPOINT } = CONSTANTS;
 export const getPlaces = () => {
   return async function(dispatch, getState) {
     try {
-      //dispatch({type: PLACES_REQUEST});
       const { currentPage: page, limit } = getState().placeState;
       const { preferredLocation } = getState().sessionState;
       const response = await Axios.get(

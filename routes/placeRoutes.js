@@ -30,7 +30,7 @@ router.get("/", userIsAuthenticated, async (req, res, next) => {
 router.get("/google", async (req, res, next) => {
   try {
     const { address, city, state, zip } = req.query;
-    const addressData = { address, city, state, zip }; //req.body.data;
+    const addressData = { address, city, state, zip };
     return res.json(await getLatLng(addressData));
   } catch (e) {
     return next(e);
