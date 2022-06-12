@@ -10,9 +10,19 @@ if (process.env.NODE_ENV === "production") {
   URI = process.env.DATABASE_URL;
 }
 
-const db = new Client({
-  connectionString: `postgresql:///${URI}`
-});
+const config =
+  process.env.NODE_ENV === "production"
+    ? {
+        connectionString: process.env.DATABASE_URL || `postgresql:///${URI}`,
+        ssl: {
+          rejectUnauthorized: false
+        }
+      }
+    : {
+        connectionString: process.env.DATABASE_URL || `postgresql:///${URI}`
+      };
+
+const db = new Client(config);
 
 db.connect();
 

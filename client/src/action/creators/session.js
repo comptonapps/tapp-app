@@ -18,7 +18,6 @@ import { notify } from "../../helpers/notify";
 import CONSTANTS from "../../constants";
 
 const {
-  API_BASE_URL,
   API_LOGIN_ENDPOINT,
   API_REGISTER_ENDPOINT,
   API_USER_ENDPOINT
@@ -28,7 +27,7 @@ export const loginUser = loginData => {
   return async function(dispatch) {
     try {
       dispatch({ type: AUTH_REQUEST });
-      const response = await Axios.post(`${API_LOGIN_ENDPOINT}`, loginData);
+      const response = await Axios.post(`/api${API_LOGIN_ENDPOINT}`, loginData);
       dispatch(loggedInUser({ ...response.data }));
       notify(`Welcome back, ${response.data.user.username}!`, dispatch);
     } catch (e) {
@@ -49,7 +48,7 @@ export const registerUser = registerData => {
     try {
       dispatch({ type: AUTH_REQUEST });
       const response = await Axios.post(
-        `${API_REGISTER_ENDPOINT}`,
+        `/api${API_REGISTER_ENDPOINT}`,
         registerData
       );
       dispatch(loggedInUser(response.data));
@@ -65,7 +64,7 @@ export const refreshSessionUser = () => {
     try {
       dispatch({ type: AUTH_REQUEST });
       const id = getState().sessionState.user.id;
-      const response = await Axios.get(`${API_USER_ENDPOINT}/${id}`);
+      const response = await Axios.get(`/api${API_USER_ENDPOINT}/${id}`);
       dispatch(refreshedUser(response.data.user));
     } catch (e) {
       console.log("ERROR", e.request);
@@ -79,7 +78,7 @@ export const createPlaceRating = (rating, place_id) => {
       dispatch({ type: AUTH_REQUEST });
       const userId = getState().sessionState.user.id;
       const response = await Axios.post(
-        `/user/${userId}/rating/place/${place_id}`,
+        `/api/user/${userId}/rating/place/${place_id}`,
         { rating }
       );
       dispatch({
@@ -97,9 +96,12 @@ export const updatePlaceRating = (newRating, oldRating, id) => {
     try {
       dispatch({ type: AUTH_REQUEST });
       const userId = getState().sessionState.user.id;
-      const response = await Axios.patch(`/user/${userId}/rating/place/${id}`, {
-        rating: newRating
-      });
+      const response = await Axios.patch(
+        `/api/user/${userId}/rating/place/${id}`,
+        {
+          rating: newRating
+        }
+      );
       const rating = response.data.place_rating;
       rating["old_rating"] = oldRating;
       dispatch({ type: PLACE_UPDATE_RATING_SUCCESS, payload: rating });
@@ -114,7 +116,7 @@ export const deletePlaceRating = (rating, id) => {
     try {
       dispatch({ type: AUTH_REQUEST });
       const userId = getState().sessionState.user.id;
-      const response = await Axios.delete(`/user/${userId}/rating/place/${id}`);
+      await Axios.delete(`/api/user/${userId}/rating/place/${id}`);
       dispatch({
         type: PLACE_DELETE_RATING_SUCCESS,
         payload: { place_rating: rating, place_id: id }
@@ -131,7 +133,7 @@ export const createDrinkRating = (rating, id) => {
       dispatch({ type: AUTH_REQUEST });
       const userId = getState().sessionState.user.id;
       const response = await Axios.post(
-        `${API_USER_ENDPOINT}/${userId}/rating/drink/${id}`,
+        `/api${API_USER_ENDPOINT}/${userId}/rating/drink/${id}`,
         { rating }
       );
       dispatch({
@@ -150,7 +152,7 @@ export const updateDrinkRating = (rating, oldRating, id) => {
       dispatch({ type: AUTH_REQUEST });
       const userId = getState().sessionState.user.id;
       const response = await Axios.patch(
-        `${API_USER_ENDPOINT}/${userId}/rating/drink/${id}`,
+        `/api${API_USER_ENDPOINT}/${userId}/rating/drink/${id}`,
         { rating }
       );
       dispatch({
@@ -168,7 +170,9 @@ export const deleteDrinkRating = (oldRating, id) => {
     try {
       dispatch({ type: AUTH_REQUEST });
       const userId = getState().sessionState.user.id;
-      await Axios.delete(`${API_USER_ENDPOINT}/${userId}/rating/drink/${id}`);
+      await Axios.delete(
+        `/api${API_USER_ENDPOINT}/${userId}/rating/drink/${id}`
+      );
       dispatch({
         type: DRINK_DELETE_RATING_SUCCESS,
         payload: { old_rating: oldRating, drink_id: id }
@@ -256,6 +260,5 @@ function loggedInUser(payload) {
   payload.user = userCopy;
   payload.drinks = drinks;
   payload.places = places;
-  console.log("payload after", payload);
   return { type: AUTH_SUCCESS, payload };
 }

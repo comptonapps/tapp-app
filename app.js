@@ -18,16 +18,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authenticateJWT);
 app.use(morgan("dev"));
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/place", placeRoutes);
+app.use("/api/drink", drinkRoutes);
+app.use("/api/test", testRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 }
-
-app.use("api/auth", authRoutes);
-app.use("api/user", userRoutes);
-app.use("api/place", placeRoutes);
-app.use("api/drink", drinkRoutes);
-app.use("api/test", testRoutes);
 
 app.use((req, res, next) => {
   const error = new ExpressError("Resource not Found", 404);

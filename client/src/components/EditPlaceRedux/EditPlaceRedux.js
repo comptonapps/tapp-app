@@ -11,12 +11,10 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 import React, { useState } from "react";
 import CONSTANTS from "../../constants";
 
-const { API_BASE_URL, API_USER_ENDPOINT, API_PLACE_ENDPOINT } = CONSTANTS;
+const { API_USER_ENDPOINT, API_PLACE_ENDPOINT } = CONSTANTS;
 
 const EDIT_PLACE_REQUEST = "EDIT_PLACE_REQUEST";
 const EDIT_PLACE_SUCCESS = "EDIT_PLACE_SUCCESS";
-const EDIT_DRAUGHT_SUCCESS = "EDIT_DRAUGHT_SUCCESS";
-const EDIT_PLACE_ERROR = "EDIT_PLACE_ERROR";
 
 function EditPlaceRedux() {
   const { id } = useParams();
@@ -39,7 +37,7 @@ function EditPlaceRedux() {
       try {
         dispatch({ type: EDIT_PLACE_REQUEST });
         const response = await Axios.get(
-          `${API_USER_ENDPOINT}/${userId}${API_PLACE_ENDPOINT}/${id}`
+          `/api${API_USER_ENDPOINT}/${userId}${API_PLACE_ENDPOINT}/${id}`
         );
         dispatch(gotDraughtData(response.data));
       } catch (e) {

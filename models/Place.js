@@ -89,6 +89,33 @@ class Place {
     return result.rows[0];
   }
 
+  static async searchPlaces(query, city, state) {
+    let queryString = `
+      SELECT places.*, AVG(rating) as rating, 
+      COUNT(rating) as num_ratings 
+      FROM places 
+      LEFT JOIN place_ratings 
+      ON place_id=id 
+      WHERE places.city ILIKE '%' || $1 || '%' 
+      AND places.state ILIKE '%' || $2 || '%'`;
+    const values = [city, state];
+    if (query !== "") {
+      console.log("has query");
+      let concatString = " AND ";
+      const queryTokens = query.split(" ");
+      const variableString = queryTokens
+        .map((t, i) => {
+          return `places.name ILIKE '%' || $${i + 3} || '%'`;
+        })
+        .join(" AND ");
+      queryString += concatString += variableString;
+      queryString += " GROUP BY places.id";
+      values.push(...queryTokens);
+    }
+    const results = await DB.query(queryString, values);
+    return results.rows;
+  }
+
   static async update(id, data) {
     return await DB.updateRecord(DB_TABLES.PLACES, data, { id });
   }

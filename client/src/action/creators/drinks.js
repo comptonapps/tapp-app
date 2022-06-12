@@ -2,17 +2,13 @@ import Axios from "../../helpers/Axios";
 
 import {
   DRINKS_REQUEST,
-  DRINKS_SINGLE_RECORD_REQUEST,
   DRINKS_SINGLE_SUCCESS,
   DRINKS_SUCCESS,
-  DRINKS_ERROR,
-  DRINKS_LIMIT_CHANGE,
-  DRINKS_SORT_CHANGE,
   DRINKS_MAX
 } from "../types/drinks";
 
 import CONSTANTS from "../../constants";
-const { API_BASE_URL, API_DRINK_ENDPOINT } = CONSTANTS;
+const { API_DRINK_ENDPOINT } = CONSTANTS;
 
 export const getDrinks = () => {
   return async function(dispatch, getState) {
@@ -20,7 +16,8 @@ export const getDrinks = () => {
       dispatch({ type: DRINKS_REQUEST });
       const { currentPage, limit } = getState().drinkState;
       const response = await Axios.get(
-        `${API_DRINK_ENDPOINT}?limit=${limit}&page=${currentPage + 1}&sort=name`
+        `/api${API_DRINK_ENDPOINT}?limit=${limit}&page=${currentPage +
+          1}&sort=name`
       );
       dispatch(gotDrinks(response.data.drinks));
     } catch (e) {

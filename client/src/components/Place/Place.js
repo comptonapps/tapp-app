@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Page from "../Page/Page";
-import PageTitle from "../PageTitle/PageTitle";
 import DrinkList from "../DrinkList/DrinkList";
 import Axios from "../../helpers/Axios";
 import CONSTANTS from "../../constants";
@@ -11,7 +10,7 @@ import GMap from "../Test/Gmap";
 import PlaceRating from "../PlaceRating/PlaceRating";
 import PageHeader from "../PageHeader/PageHeader";
 
-const { API_BASE_URL, API_PLACE_ENDPOINT } = CONSTANTS;
+const { API_PLACE_ENDPOINT } = CONSTANTS;
 
 function Place() {
   const history = useHistory();
@@ -37,9 +36,8 @@ function Place() {
 
   const getPlaceData = async () => {
     try {
-      const response = await Axios.get(`${API_PLACE_ENDPOINT}/${id}`);
+      const response = await Axios.get(`/api${API_PLACE_ENDPOINT}/${id}`);
       const place = response.data.place;
-      console.log(place);
       const drinks = place.drinks;
       delete place.drinks;
       dispatch({

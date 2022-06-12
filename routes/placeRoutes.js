@@ -37,6 +37,16 @@ router.get("/google", async (req, res, next) => {
   }
 });
 
+router.get("/search", userIsAuthenticated, async (req, res, next) => {
+  try {
+    const { q, city, state } = req.query;
+    const results = await Place.searchPlaces(q, city, state);
+    return res.json({ results });
+  } catch (e) {
+    return next(e);
+  }
+});
+
 router.get("/:id", userIsAuthenticated, async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -47,7 +57,7 @@ router.get("/:id", userIsAuthenticated, async (req, res, next) => {
   }
 });
 
-router.get("/:place_id/rating", userIsAuthenticated, () => {
+router.get("/:place_id/rating", userIsAuthenticated, (req, res, next) => {
   try {
     const { place_id } = req.params;
     const place_ratings = PlaceRating.getByPlaceId(place_id);
@@ -56,8 +66,6 @@ router.get("/:place_id/rating", userIsAuthenticated, () => {
     return next(e);
   }
 });
-
-//TODO: Route for draught creation
 
 router.post("/", checkForCorrectUserOrAdmin, async (req, res, next) => {
   try {

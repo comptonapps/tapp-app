@@ -1,9 +1,8 @@
 import "./Drink.css";
 import Page from "../Page/Page";
-import PageTitle from "../PageTitle/PageTitle";
 import PlaceList from "../PlaceList/PlaceList";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../helpers/Axios";
 import CONSTANTS from "../../constants";
@@ -13,12 +12,11 @@ import DrinkRating from "../DrinkRating/DrinkRating";
 import PageHeader from "../PageHeader/PageHeader";
 import SectionTitle from "../SectionTitle/SectionTitle";
 
-const { API_BASE_URL, API_DRINK_ENDPOINT } = CONSTANTS;
+const { API_DRINK_ENDPOINT } = CONSTANTS;
 
 function Drink() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const drinkState = useSelector(st => st.drinkState.sortedResults);
   const drink = useSelector(
     st => st.drinkState.sortedResults[`drink${id}`] || st.drinkState.drinks[id]
   );
@@ -26,16 +24,11 @@ function Drink() {
   const [placeList, setPlaceList] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  useEffect(() => {
-    setHasLoaded(false);
-    getDrinkData();
-  }, [preferredLocation]);
-
   const getDrinkData = async () => {
     try {
       const { city, state } = preferredLocation;
       const response = await Axios.get(
-        `${API_DRINK_ENDPOINT}/${id}?city=${city}&state=${state}`
+        `/api${API_DRINK_ENDPOINT}/${id}?city=${city}&state=${state}`
       );
       const drink = response.data.drink;
       const placeList = drink.places;
@@ -53,6 +46,11 @@ function Drink() {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    setHasLoaded(false);
+    getDrinkData();
+  }, [preferredLocation]);
 
   if (!hasLoaded) {
     return <p>Loading....</p>;
