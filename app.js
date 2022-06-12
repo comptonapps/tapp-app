@@ -30,15 +30,12 @@ app.use("/api/place", placeRoutes);
 app.use("/api/drink", drinkRoutes);
 app.use("/api/test", testRoutes);
 
-if (process.env.NODE_ENV === "production") {
-  console.log("prod");
-  app.use(express.static(path.join(__dirname, "client/build")));
-}
-
-app.use((req, res, next) => {
+app.use("/api/*", (req, res, next) => {
   const error = new ExpressError("Resource not Found", 404);
   next(error);
 });
+
+app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;

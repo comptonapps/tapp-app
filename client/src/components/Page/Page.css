@@ -1,20 +1,20 @@
 .Page {
-    height: calc(100vh - var(--navbar-height));
-    width: 100%;
-    max-width: 1200px;
-    min-width: 400px;
-    margin: 0 auto;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    background-size: cover;
+  height: calc(100vh - var(--navbar-height));
+  width: 100%;
+  max-width: 1200px;
+  min-width: 375px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .Page-content {
-    margin: 0 auto;
-    width: 100%;
-    max-width: var(--max-content-width);
-    overflow: scroll;
+  margin: 0 auto;
+  width: 100%;
+  max-width: var(--max-content-width);
+  overflow: scroll;
 }

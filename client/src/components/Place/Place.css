@@ -1,66 +1,65 @@
 .Place {
-    background-image: url('../../images/place.jpg')
+  background-image: url("../../images/place.jpg");
 }
 
 .Place-data {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-
+  text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .Place-data a {
-    color: white;
-    border: 4px solid white;
-    padding: 6px;
-    text-transform: uppercase;
-    margin-top: 24px;
-    text-align: center;
-    font-weight: bold;
-    width: 100%;
+  color: white;
+  border: 4px solid white;
+  padding: 6px;
+  text-transform: uppercase;
+  margin-top: 24px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
 }
 
 .control-btn {
-    height: 40px;
-    color: white;
-    border: 4px solid white;
-    padding: 6px;
-    text-transform: uppercase;
-    margin-top: 18px;
-    text-align: center;
-    font-size: 1em;
-    font-weight: bold;
-    width: 100%;
+  min-height: 40px;
+  color: white;
+  border: 4px solid white;
+  padding: 6px;
+  text-transform: uppercase;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  width: 100%;
 }
 
 .Place-data a:active {
-    color: black;
-    background-color: white;
+  color: black;
+  background-color: white;
 }
 
 .Place-control {
-    display: flex;
-    flex-direction: column;  
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Place-control button {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 .Place-control button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.LocationWidget button:active, .Place-control button:active {
-    background-color: var(--softer-white);
-    color: black;
+.LocationWidget button:active,
+.Place-control button:active {
+  background-color: var(--softer-white);
+  color: black;
 }
 
-@media(max-width: 768px) {
-    .Place-control {
-        margin-top: 18px;
-        width: 60%;
-    }
-
+@media (max-width: 768px) {
+  .Place-control {
+    margin-top: 18px;
+    width: 60%;
+  }
 }

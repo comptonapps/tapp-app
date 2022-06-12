@@ -1,8 +1,17 @@
 .PlaceCell-info p {
-    color: white;
-    text-align: left;
+  color: white;
+  text-align: left;
 }
 
 .PlaceCell-info h2 {
-    text-align: left;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .PlaceCell-info p {
+    text-align: center;
+  }
+  .PlaceCell-info h2 {
+    text-align: center;
+  }
 }

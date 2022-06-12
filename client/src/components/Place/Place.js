@@ -8,7 +8,7 @@ import Axios from "../../helpers/Axios";
 import CONSTANTS from "../../constants";
 import GMap from "../Test/Gmap";
 import PlaceRating from "../PlaceRating/PlaceRating";
-import PageHeader from "../PageHeader/PageHeader"; 
+import PageHeader from "../PageHeader/PageHeader";
 
 const { API_PLACE_ENDPOINT } = CONSTANTS;
 
@@ -71,12 +71,12 @@ function Place() {
           <div className="Place-control">
             {!placesOwned[id] && <PlaceRating place_id={id} />}
             {place && (
-              <button onClick={toggleMap} class="control-btn">
+              <button onClick={toggleMap} className="control-btn">
                 Show Map
               </button>
             )}
             {placesOwned[id] && (
-              <Link to={`/places/${place.id}/edit`} class="control-btn">
+              <Link to={`/places/${place.id}/edit`} className="control-btn">
                 Edit {`${place.name}`}
               </Link>
             )}
