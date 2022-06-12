@@ -46,15 +46,16 @@ function Places() {
     </Page>;
   }
 
+  //   <SearchBar
+  //         placeholder="Search Places"
+  //         clearResults={clearResults}
+  //         handleSearch={handleSearch}
+  //       />
+
   return (
     <Page cls="Places">
       <PageTitle title="places" />
       <LocationWidget />
-      <SearchBar
-        placeholder="Search Places"
-        clearResults={clearResults}
-        handleSearch={handleSearch}
-      />
       <PlaceList
         places={
           searchResults.length > 0 ? (

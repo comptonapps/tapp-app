@@ -226,7 +226,6 @@ function refreshedUser(user) {
 }
 
 function loggedInUser(payload) {
-  console.log("payload before", payload);
   const userCopy = { ...payload.user };
   let placeRatings = {};
   let drinkRatings = {};
