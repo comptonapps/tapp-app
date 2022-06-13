@@ -21,14 +21,14 @@ beforeEach(testBeforeEach);
 describe("GET /drink", () => {
   test("it should return an array of drinks for an authenticated user", async () => {
     const response = await request(app)
-      .get("/drink")
+      .get("/api/drink")
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(200);
     expect(response.body.drinks).toHaveLength(drinks.length);
   });
 
   test("it should respond with a 403 code for a non authenticated user", async () => {
-    const response = await request(app).get("/drink");
+    const response = await request(app).get("/api/drink");
     expect(response.status).toBe(403);
   });
 });
@@ -36,7 +36,7 @@ describe("GET /drink", () => {
 describe("GET /drink/:id", () => {
   test("it should return data for a drink with matching id", async () => {
     const response = await request(app)
-      .get(`/drink/${drinks[0].id}`)
+      .get(`/api/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.user}`);
     const { drink } = response.body;
     expect(drink).toEqual({
@@ -49,14 +49,14 @@ describe("GET /drink/:id", () => {
 
   test("it should respond with an error message and 404 code for a non-existent drink", async () => {
     const response = await request(app)
-      .get(`/drink/0`)
+      .get(`/api/drink/0`)
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(404);
     expect(response.body.message).toEqual("Record Not Found");
   });
 
   test("it should respond with an error message and 403 code for a non authenticated user", async () => {
-    const response = await request(app).get(`/drink/1`);
+    const response = await request(app).get(`/api/drink/1`);
     expect(response.status).toBe(403);
     expect(response.body.message).toEqual("Authentication required");
   });
@@ -70,7 +70,7 @@ describe("POST /drink", () => {
 
   test("it should respond with a 403 code for a non admin user", async () => {
     const response = await request(app)
-      .post("/drink")
+      .post("/api/drink")
       .set("authorization", `Bearer ${tokens.user}`)
       .send(newDrinkData);
     expect(response.status).toBe(403);
@@ -78,14 +78,14 @@ describe("POST /drink", () => {
 
   test("it should respond with a 403 code for a non-authenticated user", async () => {
     const response = await request(app)
-      .post("/drink")
+      .post("/api/drink")
       .send(newDrinkData);
     expect(response.status).toBe(403);
   });
 
   test("it should create a drink and return drink data for an admin request", async () => {
     const response = await request(app)
-      .post("/drink")
+      .post("/api/drink")
       .set("authorization", `Bearer ${tokens.admin}`)
       .send(newDrinkData);
     const drink = response.body.drink;
@@ -97,7 +97,7 @@ describe("POST /drink", () => {
 
   test("it should return with a 400 response code for missing drink data", async () => {
     const response = await request(app)
-      .post("/drink")
+      .post("/api/drink")
       .set("authorization", `Bearer ${tokens.admin}`)
       .send({ name: "Error Saison" });
     expect(response.status).toBe(400);
@@ -105,7 +105,7 @@ describe("POST /drink", () => {
 
   test("it should return with a 400 response code for extra fields in drink data", async () => {
     const response = await request(app)
-      .post("/drink")
+      .post("/api/drink")
       .set("authorization", `Bearer ${tokens.admin}`)
       .send({ name: "Error Saison", maker: "foo brews", fake: "blargh" });
     expect(response.status).toBe(400);
@@ -121,7 +121,7 @@ describe("PATCH /drink", () => {
   };
   test("it should respond with a 403 error code for a non-admin user", async () => {
     const response = await request(app)
-      .patch(`/drink/${drinks[0].id}`)
+      .patch(`/api/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.user}`)
       .send(newDrinkData);
     expect(response.status).toEqual(403);
@@ -129,14 +129,14 @@ describe("PATCH /drink", () => {
 
   test("it should respond with a 403 error code for a non-authenticated user", async () => {
     const response = await request(app)
-      .patch(`/drink/${drinks[0].id}`)
+      .patch(`/api/drink/${drinks[0].id}`)
       .send(newDrinkData);
     expect(response.status).toEqual(403);
   });
 
   test("it should respond with a 400 status for extra fields in drink data", async () => {
     const response = await request(app)
-      .patch(`/drink/${drinks[0].id}`)
+      .patch(`/api/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.admin}`)
       .send({ ...newDrinkData, error: "baz" });
     expect(response.status).toBe(400);
@@ -144,7 +144,7 @@ describe("PATCH /drink", () => {
 
   test("it should update a drink and return the new data for admin request", async () => {
     const response = await request(app)
-      .patch(`/drink/${drinks[0].id}`)
+      .patch(`/api/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.admin}`)
       .send(newDrinkData);
     expect(response.status).toEqual(200);
@@ -158,7 +158,7 @@ describe("PATCH /drink", () => {
 
   test("it should return with an error message and a 404 code for a non-existent drink", async () => {
     const response = await request(app)
-      .patch(`/drink/0`)
+      .patch(`/api/drink/0`)
       .set("authorization", `Bearer ${tokens.admin}`)
       .send(newDrinkData);
     expect(response.status).toEqual(404);
@@ -168,20 +168,20 @@ describe("PATCH /drink", () => {
 
 describe("DELETE /drink/:id", () => {
   test("it should return a 403 error code for a non authenticated user", async () => {
-    const response = await request(app).delete(`/drink/${drinks[0].id}`);
+    const response = await request(app).delete(`/api/drink/${drinks[0].id}`);
     expect(response.status).toBe(403);
   });
 
   test("it should return a 403 error code for a non-admin user", async () => {
     const response = await request(app)
-      .delete(`/drink/${drinks[0].id}`)
+      .delete(`/api/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.user}`);
     expect(response.status).toBe(403);
   });
 
   test("it should delete a drink and return a deleted message", async () => {
     const response = await request(app)
-      .delete(`/drink/${drinks[0].id}`)
+      .delete(`/api/drink/${drinks[0].id}`)
       .set("authorization", `Bearer ${tokens.admin}`);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("deleted");
@@ -189,7 +189,7 @@ describe("DELETE /drink/:id", () => {
 
   test("it should return a 404 error code for a non-existent drink", async () => {
     const response = await request(app)
-      .delete(`/drink/0`)
+      .delete(`/api/drink/0`)
       .set("authorization", `Bearer ${tokens.admin}`);
     expect(response.status).toBe(404);
     expect(response.body.message).toEqual("Record not found in drinks");

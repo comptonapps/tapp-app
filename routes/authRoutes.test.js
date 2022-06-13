@@ -16,7 +16,7 @@ let testUserData = {
 describe("POST /auth/register", () => {
   test("it should create a user and return user data", async () => {
     const response = await request(app)
-      .post("/auth/register")
+      .post("/api/auth/register")
       .send(testUserData);
     const { user } = response.body;
     expect(user.username).toEqual(testUserData.username);
