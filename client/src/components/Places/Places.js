@@ -26,7 +26,7 @@ function Places() {
 
   const handleSearch = async (evt, q) => {
     evt.preventDefault();
-    const url = `http://localhost:3003/api/place/search?q=${q}&city=${preferredLocation.city}&state=${preferredLocation.state}`;
+    const url = `/api/place/search?q=${q}&city=${preferredLocation.city}&state=${preferredLocation.state}`;
     const queryResults = await Axios.get(url);
     setSearchResults(queryResults.data.results);
   };
