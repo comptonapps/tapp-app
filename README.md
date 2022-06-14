@@ -55,7 +55,7 @@ jest --runInBand
 
 The backend is a Node application with an Express server and it uses a PostgreSQL database.
 
-[API docs here:]('https://wat-api-docs.herokuapp.com')
+[API docs here:](https://wat-api-docs.herokuapp.com)
 
 ## Contributors
 
